@@ -74,6 +74,8 @@ def clear_multi():
     return
 
 
+create_plot = st.checkbox("Create plot", value=False, key="create_plot")
+
 if st.button("Submit"):
     allowed_words = termlist + complist
 
@@ -87,18 +89,19 @@ if st.button("Submit"):
 
     st.dataframe(df)
 
-    # Plot heatmap
+    if create_plot:
+        # Plot heatmap
 
-    fig, ax = plt.subplots()
+        fig, ax = plt.subplots()
 
-    sns.heatmap(df, annot=True, linewidths=0.5, square=True, cmap="Blues", ax=ax)
+        sns.heatmap(df, annot=True, linewidths=0.5, square=True, cmap="Blues", ax=ax)
 
-    plt.yticks(rotation=0)
-    plt.xticks(rotation=45)
+        plt.yticks(rotation=0)
+        plt.xticks(rotation=45)
 
-    plt.title(f"Term Co-occurrence in Tesserae", fontsize=10)
-    plt.subplots_adjust(top=1.2)
-    st.pyplot(fig)
+        plt.title(f"Term Co-occurrence in Tesserae", fontsize=10)
+        plt.subplots_adjust(top=1.2)
+        st.pyplot(fig)
 
 if st.button("Reset", on_click=clear_multi):
     st.experimental_rerun()
