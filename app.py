@@ -59,8 +59,20 @@ terms = sorted(terms)
 
 # Make streamlit dropdown with text entry for terms
 
+st.header("Tesserae Term Co-occurrence")
+st.write(
+    "Select lists of terms to create a co-occurrence matrix at the sentence level within the Tesserae Latin texts."
+)
+
 termlist = st.multiselect("Enter termlist", options=terms, key="termlist")
 complist = st.multiselect("Enter termlist", options=terms + ["impurus"], key="complist")
+
+
+def clear_multi():
+    st.session_state.termlist = []
+    st.session_state.complist = []
+    return
+
 
 if st.button("Submit"):
     allowed_words = termlist + complist
@@ -87,3 +99,6 @@ if st.button("Submit"):
     plt.title(f"Term Co-occurrence in Tesserae", fontsize=10)
     plt.subplots_adjust(top=1.2)
     st.pyplot(fig)
+
+if st.button("Reset", on_click=clear_multi):
+    st.experimental_rerun()

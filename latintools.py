@@ -1,9 +1,11 @@
 import re
 import html
 import unicodedata
-from cltk.alphabet.lat import JVReplacer
 
-replacer = JVReplacer()
+
+def replacer(text):
+    return text.replace("v", "u").replace("j", "i")
+
 
 # Helper function for preprocessing
 def preprocess(
@@ -29,7 +31,7 @@ def preprocess(
         text = text.lower()  # Lowercase
 
     if normalize:
-        text = replacer.replace(text)
+        text = replacer(text)
 
     if not punctuation:
         # Remove punctuation
